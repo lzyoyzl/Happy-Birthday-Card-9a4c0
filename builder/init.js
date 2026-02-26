@@ -34,25 +34,33 @@ const setLocalData = async () => {
   }
 };
 
-//Remote initialization
+// Remote initialization
 const setRemoteData = async () => {
   try {
-    let res = await axios.get(picPath, {
-      responseType: "arraybuffer",
-    });
+    let res = await axios.get(picPath, { responseType: "arraybuffer" });
     const pic = res.data;
+
     let markup = "";
     if (msgPath) {
-      const article = msgPath.split("/").pop();
-      res = await axios.get(
-        `https://api.telegra.ph/getPage/${article}?return_content=true`
-      );
-      const { content } = res.data.result;
-      markup = content.reduce(
-        (string, node) => string + generateMarkupRemote(node),
-        ""
-      );
+      if (msgPath.includes("telegra.ph")) {
+        const article = msgPath.split("/").pop();
+        res = await axios.get(
+          `https://api.telegra.ph/getPage/${article}?return_content=true`
+        );
+        const { content } = res.data.result;
+        markup = content.reduce(
+          (string, node) => string + generateMarkupRemote(node),
+          ""
+        );
+      } else {
+        // ✅ 这里新增：支持 GitHub Raw 等纯文本直链
+        res = await axios.get(msgPath, { responseType: "text" });
+        const text =
+          typeof res.data === "string" ? res.data : res.data.toString("utf-8");
+        markup = generateMarkupLocal(text);
+      }
     }
+
     await setPic(pic);
     genIndex(markup);
   } catch (e) {
