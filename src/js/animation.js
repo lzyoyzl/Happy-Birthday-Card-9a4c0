@@ -63,7 +63,7 @@ const transition = (currentScene) => {
 */
 
 export const animate = function () {
-  CTAtext.innerHTML = "Click the Light Bulb.";
+  CTAtext.innerHTML = "点击灯泡";
 
   readMsg(blackText);
 
@@ -78,7 +78,7 @@ export const animate = function () {
 
       light.play();
       transition(darkroom);
-      CTAtext.innerHTML = "Click the Door";
+      CTAtext.innerHTML = "点击出门";
       setTimeout(function () {
         button.classList.add("door-out");
         button.classList.remove("switch");
