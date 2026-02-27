@@ -78,7 +78,7 @@ export const animate = function () {
 
       light.play();
       transition(darkroom);
-      CTAtext.innerHTML = "点击出门";
+      CTAtext.innerHTML = "点击开门";
       setTimeout(function () {
         button.classList.add("door-out");
         button.classList.remove("switch");
