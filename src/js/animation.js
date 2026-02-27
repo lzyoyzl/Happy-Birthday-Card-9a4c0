@@ -109,7 +109,7 @@ export const animate = function () {
 
       door.play();
       transition(hallway);
-      CTAtext.innerHTML = "Click the Gift";
+      CTAtext.innerHTML = "请打开何亿乐专属礼物（欧阳照林独家定制款）";
       setTimeout(function () {
         button.classList.add("gift");
         button.classList.remove("door-in");
